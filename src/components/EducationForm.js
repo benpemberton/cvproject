@@ -3,52 +3,45 @@ import React from "react";
 class EducationForm extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props);
   }
 
-  render(sectionID) {
-    const index = this.state.sections.findIndex(
-      (section) => section.id === sectionID
-    );
-
+  render() {
     return (
-      <form className="edu-form" key={sectionID} id={sectionID}>
+      <form className="edu-form" id={this.props.id}>
         <label htmlFor="subject">Subject:</label>
         <input
           type="text"
           name="subject"
-          value={this.state.sections[index].subject}
-          onChange={(e) => this.handleChange(e)}
+          value={this.props.section.subject}
+          onChange={this.props.handler}
         />
         <label htmlFor="institution">Institution:</label>
         <input
           type="text"
           name="institution"
-          value={this.state.sections[index].institution}
-          onChange={(e) => this.handleChange(e)}
+          value={this.props.section.institution}
+          onChange={this.props.handler}
         />
         <label htmlFor="start">Start:</label>
         <input
           type="month"
           name="start"
-          value={this.state.sections[index].start}
-          onChange={(e) => this.handleChange(e)}
+          value={this.props.section.start}
+          onChange={this.props.handler}
         />
         <label htmlFor="end">End:</label>
         <input
           type="month"
           name="end"
-          value={this.state.sections[index].end}
-          onChange={(e) => this.handleChange(e)}
+          value={this.props.section.end}
+          onChange={this.props.handler}
         />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            this.removeSection(e);
-          }}
-        >
-          -
-        </button>
+        <button onClick={this.props.remove}>-</button>
       </form>
     );
   }
 }
+
+export default EducationForm;
