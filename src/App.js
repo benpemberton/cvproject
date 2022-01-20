@@ -27,8 +27,65 @@ class App extends React.Component {
           id: uniqid(),
         },
       ],
-      work: {
-        sections: [
+      work: [
+        {
+          title: "",
+          employer: "",
+          duties: "",
+          start: "",
+          end: "",
+          id: uniqid(),
+        },
+      ],
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.addSection = this.addSection.bind(this);
+    this.removeSection = this.removeSection.bind(this);
+  }
+
+  handleChange(e, type) {
+    if (type === "personal") {
+      const prevState = { ...this.state.personal };
+
+      prevState[e.target.name] = e.target.value;
+
+      this.setState({ personal: prevState });
+    } else {
+      const index = this.state[type].findIndex(
+        (section) => section.id === e.target.parentNode.id
+      );
+
+      const prevState = [...this.state[type]];
+
+      const obj = { ...prevState[index] };
+
+      obj[e.target.name] = e.target.value;
+
+      prevState[index] = obj;
+
+      this.setState({ [type]: [...prevState] });
+    }
+  }
+
+  addSection(type) {
+    if (type === "education") {
+      this.setState({
+        [type]: [
+          ...this.state[type],
+          {
+            subject: "",
+            institution: "",
+            start: "",
+            end: "",
+            id: uniqid(),
+          },
+        ],
+      });
+    } else {
+      this.setState({
+        [type]: [
+          ...this.state[type],
           {
             title: "",
             employer: "",
@@ -38,33 +95,17 @@ class App extends React.Component {
             id: uniqid(),
           },
         ],
-      },
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    // this.removeSection = this.removeSection.bind(this);
+      });
+    }
   }
 
-  handleChange(e, type) {
-    const index = this.state[type].findIndex(
-      (section) => section.id === e.target.parentNode.id
-    );
-
-    const prevState = [...this.state[type]];
-
-    const obj = { ...prevState[index] };
-
-    obj[e.target.name] = e.target.value;
-
-    prevState[index] = obj;
-
-    if (type === "education") {
-      this.setState({ [type]: [...prevState] });
-    }
-
-    // this.setState(() => {
-    //   return (this.state[type].sections[index][e.target.name] = e.target.value);
-    // });
+  removeSection(e, type) {
+    e.preventDefault();
+    this.setState({
+      [type]: this.state[type].filter(
+        (section) => section.id !== e.target.parentNode.id
+      ),
+    });
   }
 
   componentDidUpdate() {
@@ -75,21 +116,29 @@ class App extends React.Component {
     return (
       <div>
         <div className="personal-box">
-          <Personal />
+          <Personal
+            sectionType="personal"
+            handler={this.handleChange}
+            {...this.state.personal}
+          />
         </div>
         <div className="edu-box">
           <Section
             sections={this.state.education}
             sectionType="education"
             handler={this.handleChange}
+            add={this.addSection}
+            remove={this.removeSection}
             form={EducationForm}
           />
         </div>
         <div className="work-box">
           <Section
-            {...this.state.work}
+            sections={this.state.work}
             sectionType="work"
             handler={this.handleChange}
+            add={this.addSection}
+            remove={this.removeSection}
             form={WorkForm}
           />
         </div>

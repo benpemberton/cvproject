@@ -38,7 +38,9 @@ class EducationForm extends React.Component {
           value={this.props.section.end}
           onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
-        <button onClick={this.props.remove}>-</button>
+        <button onClick={(e) => this.props.remove(e, this.props.sectionType)}>
+          -
+        </button>
       </form>
     );
   }

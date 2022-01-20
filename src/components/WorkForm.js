@@ -15,37 +15,39 @@ class WorkForm extends React.Component {
           type="text"
           name="title"
           value={this.props.section.title}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <label htmlFor="employer">Employer:</label>
         <input
           type="text"
           name="employer"
           value={this.props.section.employer}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <label htmlFor="duties">Duties:</label>
         <input
           type="text"
           name="duties"
           value={this.props.section.duties}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <label htmlFor="start">Start:</label>
         <input
           type="month"
           name="start"
           value={this.props.section.start}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <label htmlFor="end">End:</label>
         <input
           type="month"
           name="end"
           value={this.props.section.end}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
-        <button onClick={this.props.remove}>-</button>
+        <button onClick={(e) => this.props.remove(e, this.props.sectionType)}>
+          -
+        </button>
       </form>
     );
   }

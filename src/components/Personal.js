@@ -3,22 +3,40 @@ import React from "react";
 class Personal extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
 
   render() {
     return (
       <div>
-        <form>
-          <label htmlFor="first-name">First name:</label>
-          <input type="text" id="first-name" />
-          <label htmlFor="last-name">Last name:</label>
-          <input type="text" id="last-name" />
+        <form className="personal-form">
+          <label htmlFor="first">First name:</label>
+          <input
+            type="text"
+            name="first"
+            value={this.props.first}
+            onChange={(e) => this.props.handler(e, this.props.sectionType)}
+          />
+          <label htmlFor="last">Last name:</label>
+          <input
+            type="text"
+            name="last"
+            value={this.props.last}
+            onChange={(e) => this.props.handler(e, this.props.sectionType)}
+          />
           <label htmlFor="email">Email:</label>
-          <input type="email" id="email" />
+          <input
+            type="email"
+            name="email"
+            value={this.props.email}
+            onChange={(e) => this.props.handler(e, this.props.sectionType)}
+          />
           <label htmlFor="mobile">Mobile no.:</label>
-          <input type="tel" id="mobile" />
+          <input
+            type="tel"
+            name="mobile"
+            value={this.props.mobile}
+            onChange={(e) => this.props.handler(e, this.props.sectionType)}
+          />
         </form>
       </div>
     );
