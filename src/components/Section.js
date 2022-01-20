@@ -5,6 +5,8 @@ class Section extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     if (this.props.sectionType === "education") {
       this.state = {
         sections: [
@@ -32,13 +34,13 @@ class Section extends React.Component {
       };
     }
 
-    console.log(this.state);
-
     this.handleChange = this.handleChange.bind(this);
     this.removeSection = this.removeSection.bind(this);
   }
 
-  handleChange(e) {
+  handleChange(e, sectionType) {
+    console.log(e + "" + sectionType);
+
     const index = this.state.sections.findIndex(
       (section) => section.id === e.target.parentNode.id
     );
@@ -88,19 +90,19 @@ class Section extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    console.log(...this.state.sections);
-  }
+  //   componentDidUpdate() {
+  //     console.log(...this.state.sections);
+  //   }
 
   render() {
     return (
       <div>
-        {this.state.sections.map((section) => (
+        {this.props.sections.map((section) => (
           <this.props.form
             key={section.id}
             section={section}
-            id={section.id}
-            handler={this.handleChange}
+            sectionType={this.props.sectionType}
+            handler={(e, type) => this.props.handler(e, type)}
             remove={this.removeSection}
           />
         ))}

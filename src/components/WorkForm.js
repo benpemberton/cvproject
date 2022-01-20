@@ -9,7 +9,7 @@ class WorkForm extends React.Component {
 
   render() {
     return (
-      <form className="work-form" id={this.props.id}>
+      <form className="work-form" id={this.props.section.id}>
         <label htmlFor="title">Job title:</label>
         <input
           type="text"

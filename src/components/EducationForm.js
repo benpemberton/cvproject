@@ -9,34 +9,34 @@ class EducationForm extends React.Component {
 
   render() {
     return (
-      <form className="edu-form" id={this.props.id}>
+      <form className="edu-form" id={this.props.section.id}>
         <label htmlFor="subject">Subject:</label>
         <input
           type="text"
           name="subject"
           value={this.props.section.subject}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <label htmlFor="institution">Institution:</label>
         <input
           type="text"
           name="institution"
           value={this.props.section.institution}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <label htmlFor="start">Start:</label>
         <input
           type="month"
           name="start"
           value={this.props.section.start}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <label htmlFor="end">End:</label>
         <input
           type="month"
           name="end"
           value={this.props.section.end}
-          onChange={this.props.handler}
+          onChange={(e) => this.props.handler(e, this.props.sectionType)}
         />
         <button onClick={this.props.remove}>-</button>
       </form>
