@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css?family=Calibri");
+@import url("https://fonts.googleapis.com/css?family=Garamond");
+
+body {
+  background-color: #254f55;
+}
+
+h2,
+h3,
+p,
+label {
+  font-family: Calibri;
+}
+
+button {
+  background-color: #254f55;
+  border-radius: 5px;
+  border: none;
+  color: #dfddcf;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+button:active {
+  background-color: #2f6c75;
+}
+
+button.add {
+  margin: 2% 0;
+}
+
+button.remove {
+  width: 30px;
+  margin: 0 auto;
+}
+
+button.save,
+button.edit {
+  background-color: #dfddcf;
+  color: #254f55;
+  padding: 10px 15px;
+}
+
+button.save:active,
+button.edit:active {
+  background-color: #bbb693;
+}
+
+.wrap {
+  padding: 2% 15%;
+  min-width: 1465px;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  color: #ffffff;
+}
+
+.section {
+  background-color: #dfddcf;
+  padding: 2% 2%;
+  margin: 3% 0;
+  border-radius: 10px;
+}
+
+h1 {
+  font-family: Garamond;
+  font-size: 2.5em;
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  height: 1.5em;
+}
+
+.saved p {
+  font-family: Garamond;
+  font-size: 1.3em;
+  margin: 0% 0;
+}
+
+.personal-form.saved {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0;
+}
+
+.personal-form.saved p {
+  margin: 0.2em 0;
+}
+
+.personal-form {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+  row-gap: 10px;
+}
+
+.personal-form label {
+  text-align: right;
+  grid-column: 1/2;
+}
+
+.personal-form input {
+  margin-top: 0;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
+}
+
+input[type="month"] {
+  width: 155px;
+}
+
+.form-wrap {
+  display: flex;
+  justify-content: center;
+  background-color: #c9c6b0;
+  margin-top: 2%;
+  padding: 1% 1%;
+  border-radius: 10px;
+}
+
+.edu-form.saved p,
+.work-form.saved p {
+  line-height: 15px;
+  font-size: 1.3em;
+  margin-right: 15px;
+}
+
+.edu-form.saved label,
+.work-form.saved label {
+  margin-right: 3px;
+  color: #0d2427;
+}
+
+.edu-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 10% 70% 20%;
+  row-gap: 10px;
+}
+
+.edu-form label {
+  text-align: right;
+  grid-column: 1/2;
+}
+
+.edu-form input {
+  margin-top: 0;
+  margin-left: 2%;
+  margin-right: 5%;
+}
+
+.work-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 10% 70% 20%;
+  row-gap: 10px;
+}
+
+.work-form label {
+  text-align: right;
+  grid-column: 1/2;
+}
+
+.work-form input,
+.work-form textarea {
+  margin-top: 0;
+  margin-left: 2%;
+  margin-right: 5%;
+  font-family: arial;
+}
