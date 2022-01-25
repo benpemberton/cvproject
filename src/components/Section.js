@@ -1,18 +1,10 @@
 import React from "react";
-import uniqid from "uniqid";
 
-class Section extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  addButton() {
-    if (this.props.editing) {
+function Section(props) {
+  function addButton() {
+    if (props.editing) {
       return (
-        <button
-          className="add"
-          onClick={() => this.props.add(this.props.sectionType)}
-        >
+        <button className="add" onClick={() => props.add(props.sectionType)}>
           +
         </button>
       );
@@ -21,23 +13,21 @@ class Section extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-        {this.props.sections.map((section) => (
-          <this.props.form
-            key={section.id}
-            editing={this.props.editing}
-            section={section}
-            sectionType={this.props.sectionType}
-            handler={(e, type) => this.props.handler(e, type)}
-            remove={(e, type) => this.props.remove(e, type)}
-          />
-        ))}
-        {this.addButton()}
-      </div>
-    );
-  }
+  return (
+    <div>
+      {props.sections.map((section) => (
+        <props.form
+          key={section.id}
+          editing={props.editing}
+          section={section}
+          sectionType={props.sectionType}
+          handler={(e, type) => props.handler(e, type)}
+          remove={(e, type) => props.remove(e, type)}
+        />
+      ))}
+      {addButton()}
+    </div>
+  );
 }
 
 export default Section;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Personal from "./components/Personal";
 import Section from "./components/Section";
 import EducationForm from "./components/EducationForm";
@@ -6,19 +6,72 @@ import WorkForm from "./components/WorkForm";
 import uniqid from "uniqid";
 import "./app.css";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+function App() {
+  const [editing, setEditing] = useState(true);
 
-    this.state = {
-      editing: true,
-      personal: {
-        first: "",
-        last: "",
-        email: "",
-        mobile: "",
-      },
-      education: [
+  const [personal, setPersonal] = useState({
+    first: "",
+    last: "",
+    email: "",
+    mobile: "",
+  });
+
+  const [education, setEducation] = useState([
+    {
+      subject: "",
+      institution: "",
+      start: "",
+      end: "",
+      id: uniqid(),
+    },
+  ]);
+
+  const [work, setWork] = useState([
+    {
+      title: "",
+      employer: "",
+      duties: "",
+      start: "",
+      end: "",
+      id: uniqid(),
+    },
+  ]);
+
+  function handleChange(e, type) {
+    const { name, value, parentNode } = e.target;
+    if (type === "personal") {
+      setPersonal({ ...personal, [name]: value });
+    }
+    if (type === "education") {
+      const newArray = editArray(education);
+      setEducation([...newArray]);
+    }
+    if (type === "work") {
+      const newArray = editArray(work);
+      setWork([...newArray]);
+    }
+
+    function editArray(stateVar) {
+      const index = stateVar.findIndex(
+        (section) => section.id === parentNode.id
+      );
+
+      let newArray = [...stateVar];
+
+      const obj = { ...newArray[index] };
+
+      obj[name] = value;
+
+      newArray[index] = obj;
+
+      return newArray;
+    }
+  }
+
+  function addSection(type) {
+    if (type === "education") {
+      setEducation([
+        ...education,
         {
           subject: "",
           institution: "",
@@ -26,8 +79,10 @@ class App extends React.Component {
           end: "",
           id: uniqid(),
         },
-      ],
-      work: [
+      ]);
+    } else {
+      setWork([
+        ...work,
         {
           title: "",
           employer: "",
@@ -36,146 +91,72 @@ class App extends React.Component {
           end: "",
           id: uniqid(),
         },
-      ],
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.addSection = this.addSection.bind(this);
-    this.removeSection = this.removeSection.bind(this);
-    this.editStatus = this.editStatus.bind(this);
-    this.saveButton = this.saveButton.bind(this);
-  }
-
-  handleChange(e, type) {
-    if (type === "personal") {
-      const prevState = { ...this.state.personal };
-
-      prevState[e.target.name] = e.target.value;
-
-      this.setState({ personal: prevState });
-    } else {
-      const index = this.state[type].findIndex(
-        (section) => section.id === e.target.parentNode.id
-      );
-
-      const prevState = [...this.state[type]];
-
-      const obj = { ...prevState[index] };
-
-      obj[e.target.name] = e.target.value;
-
-      prevState[index] = obj;
-
-      this.setState({ [type]: [...prevState] });
+      ]);
     }
   }
 
-  addSection(type) {
-    if (type === "education") {
-      this.setState({
-        [type]: [
-          ...this.state[type],
-          {
-            subject: "",
-            institution: "",
-            start: "",
-            end: "",
-            id: uniqid(),
-          },
-        ],
-      });
-    } else {
-      this.setState({
-        [type]: [
-          ...this.state[type],
-          {
-            title: "",
-            employer: "",
-            duties: "",
-            start: "",
-            end: "",
-            id: uniqid(),
-          },
-        ],
-      });
-    }
-  }
-
-  removeSection(e, type) {
+  function removeSection(e, type) {
+    const { parentNode } = e.target;
     e.preventDefault();
-    this.setState({
-      [type]: this.state[type].filter(
-        (section) => section.id !== e.target.parentNode.id
-      ),
-    });
+    type === "education"
+      ? setEducation(
+          education.filter((section) => section.id !== parentNode.id)
+        )
+      : setWork(work.filter((section) => section.id !== parentNode.id));
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
-  editStatus() {
-    if (this.state.editing) {
-      this.setState({ editing: false });
-    } else {
-      this.setState({ editing: true });
-    }
-  }
-
-  saveButton() {
-    return this.state.editing ? (
-      <button className="save" onClick={this.editStatus}>
+  function saveButton() {
+    return editing ? (
+      <button className="save" onClick={() => setEditing(!editing)}>
         Save
       </button>
     ) : (
-      <button className="edit" onClick={this.editStatus}>
+      <button className="edit" onClick={() => setEditing(!editing)}>
         Edit
       </button>
     );
   }
 
-  render() {
-    return (
-      <div className="wrap">
-        <div className="header">
-          <h1>CV Template</h1>
-        </div>
-        <div className="personal-box section">
-          <Personal
-            editing={this.state.editing}
-            sectionType="personal"
-            handler={this.handleChange}
-            {...this.state.personal}
-          />
-        </div>
-        <div className="edu-box section">
-          <h2>Education</h2>
-          <Section
-            editing={this.state.editing}
-            sections={this.state.education}
-            sectionType="education"
-            handler={this.handleChange}
-            add={this.addSection}
-            remove={this.removeSection}
-            form={EducationForm}
-          />
-        </div>
-        <div className="work-box section">
-          <h2>Work</h2>
-          <Section
-            editing={this.state.editing}
-            sections={this.state.work}
-            sectionType="work"
-            handler={this.handleChange}
-            add={this.addSection}
-            remove={this.removeSection}
-            form={WorkForm}
-          />
-        </div>
-        {this.saveButton()}
+  return (
+    <div className="wrap">
+      <div className="header">
+        <h1>CV Template</h1>
       </div>
-    );
-  }
+      <div className="personal-box section">
+        <Personal
+          editing={editing}
+          sectionType="personal"
+          handler={handleChange}
+          {...personal}
+        />
+      </div>
+      <div className="edu-box section">
+        <h2>Education</h2>
+        <Section
+          editing={editing}
+          sections={education}
+          sectionType="education"
+          handler={handleChange}
+          add={addSection}
+          remove={removeSection}
+          form={EducationForm}
+        />
+      </div>
+      <div className="work-box section">
+        <h2>Work</h2>
+        <Section
+          editing={editing}
+          sections={work}
+          sectionType="work"
+          handler={handleChange}
+          add={addSection}
+          remove={removeSection}
+          form={WorkForm}
+        />
+      </div>
+      {saveButton()}
+    </div>
+  );
 }
 
 export default App;
