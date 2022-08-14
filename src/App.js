@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Personal from "./components/Personal";
-import Section from "./components/Section";
-import EducationForm from "./components/EducationForm";
-import WorkForm from "./components/WorkForm";
+import InputSheet from "./components/InputSheet";
+import OutputSheet from "./components/OutputSheet";
 import uniqid from "uniqid";
 import "./app.css";
 
 function App() {
-  const [editing, setEditing] = useState(true);
-
   const [personal, setPersonal] = useState({
     first: "",
     last: "",
@@ -99,22 +95,8 @@ function App() {
     const { parentNode } = e.target;
     e.preventDefault();
     type === "education"
-      ? setEducation(
-          education.filter((section) => section.id !== parentNode.id)
-        )
-      : setWork(work.filter((section) => section.id !== parentNode.id));
-  }
-
-  function saveButton() {
-    return editing ? (
-      <button className="save" onClick={() => setEditing(!editing)}>
-        Save
-      </button>
-    ) : (
-      <button className="edit" onClick={() => setEditing(!editing)}>
-        Edit
-      </button>
-    );
+      ? setEducation(education.filter((entry) => entry.id !== parentNode.id))
+      : setWork(work.filter((entry) => entry.id !== parentNode.id));
   }
 
   return (
@@ -122,39 +104,17 @@ function App() {
       <div className="header">
         <h1>CV Template</h1>
       </div>
-      <div className="personal-box section">
-        <Personal
-          editing={editing}
-          sectionType="personal"
-          handler={handleChange}
-          {...personal}
-        />
-      </div>
-      <div className="edu-box section">
-        <h2>Education</h2>
-        <Section
-          editing={editing}
-          sections={education}
-          sectionType="education"
+      <div className="sheets-wrap">
+        <InputSheet
           handler={handleChange}
           add={addSection}
           remove={removeSection}
-          form={EducationForm}
+          personal={personal}
+          education={education}
+          work={work}
         />
+        <OutputSheet personal={personal} education={education} work={work} />
       </div>
-      <div className="work-box section">
-        <h2>Work</h2>
-        <Section
-          editing={editing}
-          sections={work}
-          sectionType="work"
-          handler={handleChange}
-          add={addSection}
-          remove={removeSection}
-          form={WorkForm}
-        />
-      </div>
-      {saveButton()}
     </div>
   );
 }

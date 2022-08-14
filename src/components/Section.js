@@ -1,10 +1,18 @@
 import React from "react";
 
-function Section(props) {
+function Section({
+  entries,
+  editing,
+  sectionType,
+  handler,
+  add,
+  remove,
+  Form,
+}) {
   function addButton() {
-    if (props.editing) {
+    if (editing) {
       return (
-        <button className="add" onClick={() => props.add(props.sectionType)}>
+        <button className="add" onClick={() => add(sectionType)}>
           +
         </button>
       );
@@ -13,21 +21,31 @@ function Section(props) {
     }
   }
 
-  return (
-    <div>
-      {props.sections.map((section) => (
-        <props.form
-          key={section.id}
-          editing={props.editing}
-          section={section}
-          sectionType={props.sectionType}
-          handler={(e, type) => props.handler(e, type)}
-          remove={(e, type) => props.remove(e, type)}
-        />
-      ))}
-      {addButton()}
-    </div>
-  );
+  if (editing) {
+    return (
+      <div>
+        {entries.map((entry) => (
+          <Form
+            key={entry.id}
+            editing={editing}
+            entry={entry}
+            sectionType={sectionType}
+            handler={(e, type) => handler(e, type)}
+            remove={(e, type) => remove(e, type)}
+          />
+        ))}
+        {addButton()}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {entries.map((entry) => (
+          <Form key={entry.id} entry={entry} sectionType={sectionType} />
+        ))}
+      </div>
+    );
+  }
 }
 
 export default Section;
