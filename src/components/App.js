@@ -1,28 +1,35 @@
-import React, { useState, useEffect } from "react";
-import InputSheet from "./components/InputSheet";
-import OutputSheet from "./components/OutputSheet";
+import React, { useState } from "react";
+import InputSheet from "./InputSheet";
+import OutputSheet from "./OutputSheet";
+import {
+  personalExample,
+  educationExample,
+  experienceExample,
+} from "./exampleCV";
 import uniqid from "uniqid";
-import "./app.css";
+import "../app.css";
 
 function App() {
   const [personal, setPersonal] = useState({
-    first: "",
-    last: "",
+    name: "",
+    address: "",
     email: "",
     mobile: "",
+    statement: "",
   });
 
   const [education, setEducation] = useState([
     {
       subject: "",
       institution: "",
+      qualification: "",
       start: "",
       end: "",
       id: uniqid(),
     },
   ]);
 
-  const [work, setWork] = useState([
+  const [experience, setExperience] = useState([
     {
       title: "",
       employer: "",
@@ -42,9 +49,9 @@ function App() {
       const newArray = editArray(education);
       setEducation([...newArray]);
     }
-    if (type === "work") {
-      const newArray = editArray(work);
-      setWork([...newArray]);
+    if (type === "experience") {
+      const newArray = editArray(experience);
+      setExperience([...newArray]);
     }
 
     function editArray(stateVar) {
@@ -77,8 +84,8 @@ function App() {
         },
       ]);
     } else {
-      setWork([
-        ...work,
+      setExperience([
+        ...experience,
         {
           title: "",
           employer: "",
@@ -96,24 +103,39 @@ function App() {
     e.preventDefault();
     type === "education"
       ? setEducation(education.filter((entry) => entry.id !== parentNode.id))
-      : setWork(work.filter((entry) => entry.id !== parentNode.id));
+      : setExperience(experience.filter((entry) => entry.id !== parentNode.id));
+  }
+
+  function replaceState() {
+    console.log(personalExample);
+    setPersonal(personalExample);
+    setEducation(educationExample);
+    setExperience(experienceExample);
   }
 
   return (
     <div className="wrap">
       <div className="header">
         <h1>CV Template</h1>
+        <button className="example" onClick={() => replaceState()}>
+          Example CV
+        </button>
       </div>
       <div className="sheets-wrap">
         <InputSheet
+          editing={true}
           handler={handleChange}
           add={addSection}
           remove={removeSection}
           personal={personal}
           education={education}
-          work={work}
+          experience={experience}
         />
-        <OutputSheet personal={personal} education={education} work={work} />
+        <OutputSheet
+          personal={personal}
+          education={education}
+          experience={experience}
+        />
       </div>
     </div>
   );

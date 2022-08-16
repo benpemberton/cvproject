@@ -21,9 +21,34 @@ function Section({
     }
   }
 
+  function convertDate(date) {
+    if (!date) return;
+
+    const month = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const parts = date.split("-");
+
+    const index = Number(parts[1]);
+
+    return month[index - 1] + " " + parts[0];
+  }
+
   if (editing) {
     return (
-      <div>
+      <>
         {entries.map((entry) => (
           <Form
             key={entry.id}
@@ -35,15 +60,20 @@ function Section({
           />
         ))}
         {addButton()}
-      </div>
+      </>
     );
   } else {
     return (
-      <div>
+      <>
         {entries.map((entry) => (
-          <Form key={entry.id} entry={entry} sectionType={sectionType} />
+          <Form
+            key={entry.id}
+            entry={entry}
+            sectionType={sectionType}
+            convert={(date) => convertDate(date)}
+          />
         ))}
-      </div>
+      </>
     );
   }
 }

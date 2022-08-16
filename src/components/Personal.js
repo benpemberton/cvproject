@@ -4,27 +4,28 @@ function Personal({
   editing,
   sectionType,
   handler,
-  first,
-  last,
+  name,
+  address,
   email,
   mobile,
+  statement,
 }) {
   if (editing) {
     return (
-      <div>
+      <>
         <form className="personal-form">
-          <label htmlFor="first">First name:</label>
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
-            name="first"
-            value={first}
+            name="name"
+            value={name}
             onChange={(e) => handler(e, sectionType)}
           />
-          <label htmlFor="last">Last name:</label>
+          <label htmlFor="address">Address:</label>
           <input
             type="text"
-            name="last"
-            value={last}
+            name="address"
+            value={address}
             onChange={(e) => handler(e, sectionType)}
           />
           <label htmlFor="email">Email:</label>
@@ -41,17 +42,32 @@ function Personal({
             value={mobile}
             onChange={(e) => handler(e, sectionType)}
           />
+          <label htmlFor="statement">Personal statement:</label>
+          <textarea
+            name="statement"
+            value={statement}
+            onChange={(e) => handler(e, sectionType)}
+          ></textarea>
         </form>
-      </div>
+      </>
     );
   } else {
     return (
-      <form className="personal-form saved">
-        <p>{first}</p>
-        <p>{last}</p>
-        <p>{email}</p>
-        <p>{mobile}</p>
-      </form>
+      <div className="personal-output">
+        <p className="name-header">{name}</p>
+        <div className="statement-with-details">
+          <div className="statement">
+            <h2>Statement</h2>
+            <hr></hr>
+            <p>{statement}</p>
+          </div>
+          <div className="personal-details">
+            <p>{address}</p>
+            <p>{email}</p>
+            <p>{mobile}</p>
+          </div>
+        </div>
+      </div>
     );
   }
 }

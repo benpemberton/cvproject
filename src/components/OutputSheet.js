@@ -2,21 +2,21 @@ import React from "react";
 import Personal from "./Personal";
 import Section from "./Section";
 import Education from "./Education";
-import Work from "./Work";
+import Experience from "./Experience";
 
-function OutputSheet({ personal, education, work }) {
+function OutputSheet({ personal, education, experience }) {
   return (
     <div className="output-sheet">
-      <div className="personal-box section">
-        <Personal {...personal} />
+      <Personal {...personal} />
+      <div className="experience-output">
+        <h2>Experience</h2>
+        <hr></hr>
+        <Section entries={experience} Form={Experience} />
       </div>
-      <div className="edu-box section">
+      <div className="education-output">
         <h2>Education</h2>
+        <hr></hr>
         <Section entries={education} Form={Education} />
-      </div>
-      <div className="work-box section">
-        <h2>Work</h2>
-        <Section entries={work} Form={Work} />
       </div>
     </div>
   );

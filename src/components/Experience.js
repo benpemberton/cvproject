@@ -1,10 +1,10 @@
 import React from "react";
 
-function Work({ editing, entry, sectionType, handler, remove }) {
+function Experience({ editing, entry, sectionType, handler, remove, convert }) {
   if (editing) {
     return (
       <div className="form-wrap">
-        <form className="work-form" id={entry.id}>
+        <form className="experience-form" id={entry.id}>
           <label htmlFor="title">Job title:</label>
           <input
             type="text"
@@ -48,17 +48,25 @@ function Work({ editing, entry, sectionType, handler, remove }) {
     );
   } else {
     return (
-      <div className="entry-wrap">
-        <div className="work-output">
-          <p>{entry.title}</p>
-          <p>{entry.employer}</p>
-          <p>{entry.duties}</p>
-          <p>{entry.start}</p>
-          <p>{entry.end}</p>
+      <>
+        <div className="experience-entry">
+          <div className="entry-wrap">
+            <span className="title">
+              <strong>{entry.title}</strong>
+            </span>{" "}
+            - <span className="employer">{entry.employer}</span>
+            <p className="position-date">
+              ({convert(entry.start)} - {convert(entry.end)})
+            </p>
+            <p className="duties">
+              <em>{entry.duties}</em>
+            </p>
+          </div>
         </div>
-      </div>
+        <hr></hr>
+      </>
     );
   }
 }
 
-export default Work;
+export default Experience;

@@ -1,15 +1,32 @@
 @import url("https://fonts.googleapis.com/css?family=Calibri");
 @import url("https://fonts.googleapis.com/css?family=Garamond");
 
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
-  background-color: #254f55;
+  margin: 0;
 }
 
 h2,
 h3,
 p,
-label {
+label,
+input,
+textarea,
+span {
   font-family: Calibri;
+}
+
+h2 {
+  margin: 0;
+  font-weight: 500;
 }
 
 button {
@@ -30,8 +47,10 @@ button.add {
 }
 
 button.remove {
-  width: 30px;
   margin: 0 auto;
+  position: absolute;
+  right: 1%;
+  bottom: 1rem;
 }
 
 button.save,
@@ -46,132 +65,177 @@ button.edit:active {
   background-color: #bbb693;
 }
 
-.wrap {
-  padding: 2% 15%;
-  min-width: 1465px;
-  box-sizing: border-box;
+.header {
+  color: #ffffff;
+  background-color: #254f55;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 0 calc(5vw + 1rem);
 }
 
-.header {
-  text-align: center;
-  color: #ffffff;
+.header h1 {
+  font-family: Garamond;
+  font-size: 3rem;
+}
+
+.sheets-wrap {
+  display: flex;
+  align-items: flex-start;
+  margin: 2rem 5vw;
+}
+
+.input-sheet,
+.output-sheet {
+  flex: 1 1 50%;
+  margin: 1rem;
+  padding: 1vw;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.output-sheet {
+  position: sticky;
+  top: 20px;
+}
+
+.output-sheet .personal-output {
+  margin: -1vw;
+  margin-bottom: 0;
+}
+
+.experience-output p {
+  white-space: pre-line;
+}
+
+.name-header {
+  color: #fff;
+  background-color: #25552a;
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 1vw;
+  min-height: 75px;
+}
+
+.statement-with-details {
+  display: flex;
+  align-items: flex-start;
+  min-height: 10vh;
+}
+
+.statement {
+  flex: 1 1 65%;
+  padding: 1vw;
+  margin: 0;
+}
+
+.personal-details {
+  color: #fff;
+  background-color: #6373ac;
+  flex: 1 1 35%;
+  align-self: center;
+  padding: 1vw;
+}
+
+.personal-details p {
+  margin: 0 0 1rem 0;
+}
+
+.personal-details p:last-child {
+  margin: 0;
 }
 
 .section {
-  background-color: #dfddcf;
+  background-color: #e9e9e9;
   padding: 2% 2%;
-  margin: 3% 0;
+  margin-bottom: 1rem;
   border-radius: 10px;
 }
 
-h1 {
-  font-family: Garamond;
-  font-size: 2.5em;
+.section:last-child {
+  margin-bottom: 0;
 }
 
-h2 {
-  text-align: center;
+label,
+input {
+  display: block;
+}
+
+label {
+  font-size: 0.9rem;
 }
 
 input {
-  height: 1.5em;
+  margin-bottom: 0.3rem;
+  line-height: 1.2rem;
+  padding-top: 0.2rem;
 }
 
-.saved p {
-  font-family: Garamond;
-  font-size: 1.3em;
-  margin: 0% 0;
+textarea {
+  resize: vertical;
 }
 
-.personal-form.saved {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 0;
-}
-
-.personal-form.saved p {
-  margin: 0.2em 0;
-}
-
-.personal-form {
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
-  row-gap: 10px;
-}
-
-.personal-form label {
-  text-align: right;
-  grid-column: 1/2;
-}
-
-.personal-form input {
-  margin-top: 0;
-  margin-left: 5%;
-  margin-right: 5%;
-  text-align: center;
+textarea,
+input {
+  width: 100%;
+  font-size: 1rem;
 }
 
 input[type="month"] {
-  width: 155px;
+  max-width: 155px;
 }
 
 .form-wrap {
-  display: flex;
-  justify-content: center;
-  background-color: #c9c6b0;
+  background-color: #929eca;
   margin-top: 2%;
   padding: 1% 1%;
   border-radius: 10px;
+  position: relative;
 }
 
-.edu-form.saved p,
-.work-form.saved p {
-  line-height: 15px;
-  font-size: 1.3em;
-  margin-right: 15px;
+.entry-wrap p {
+  margin: 0 0 0.5rem 0;
 }
 
-.edu-form.saved label,
-.work-form.saved label {
-  margin-right: 3px;
-  color: #0d2427;
+.position-date {
+  font-size: 0.9rem;
 }
 
-.edu-form {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 10% 70% 20%;
-  row-gap: 10px;
+button.example {
+  background-color: #e9e9e9;
+  color: #254f55;
+  padding: 1rem;
 }
 
-.edu-form label {
-  text-align: right;
-  grid-column: 1/2;
+button.example:active {
+  background-color: #c2c2c2;
 }
 
-.edu-form input {
-  margin-top: 0;
-  margin-left: 2%;
-  margin-right: 5%;
+@media (max-width: 1200px) {
+  .sheets-wrap {
+    flex-direction: column;
+  }
+
+  .input-sheet,
+  .output-sheet {
+    width: 100%;
+    margin: 0;
+  }
+
+  .output-sheet {
+    margin-top: 2rem;
+  }
 }
 
-.work-form {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 10% 70% 20%;
-  row-gap: 10px;
+@page {
+  size: A4;
+  margin: 0;
 }
-
-.work-form label {
-  text-align: right;
-  grid-column: 1/2;
-}
-
-.work-form input,
-.work-form textarea {
-  margin-top: 0;
-  margin-left: 2%;
-  margin-right: 5%;
-  font-family: arial;
+@media print {
+  .output-sheet {
+    width: 210mm;
+    height: 297mm;
+  }
+  /* ... the rest of the rules ... */
 }
