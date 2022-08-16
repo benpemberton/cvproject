@@ -69,7 +69,6 @@ function Section({
           <Form
             key={entry.id}
             entry={entry}
-            sectionType={sectionType}
             convert={(date) => convertDate(date)}
           />
         ))}

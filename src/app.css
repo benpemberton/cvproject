@@ -14,6 +14,10 @@ body {
   margin: 0;
 }
 
+.wrap {
+  min-width: 500px;
+}
+
 h2,
 h3,
 p,
@@ -68,17 +72,17 @@ button.edit:active {
 .header {
   color: #ffffff;
   background-color: #254f55;
-  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding: 0 calc(5vw + 1rem);
+  padding: 1rem calc(5vw + 1rem);
 }
 
 .header h1 {
   font-family: Garamond;
   font-size: 3rem;
+  margin: 1rem 0;
 }
 
 .sheets-wrap {
@@ -203,12 +207,19 @@ input[type="month"] {
 }
 
 button.example {
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+button.example,
+button.save-pdf {
   background-color: #e9e9e9;
   color: #254f55;
   padding: 1rem;
 }
 
-button.example:active {
+button.example:active,
+button.save-pdf:active {
   background-color: #c2c2c2;
 }
 
@@ -223,19 +234,7 @@ button.example:active {
     margin: 0;
   }
 
-  .output-sheet {
-    margin-top: 2rem;
+  .input-sheet {
+    margin-bottom: 2rem;
   }
-}
-
-@page {
-  size: A4;
-  margin: 0;
-}
-@media print {
-  .output-sheet {
-    width: 210mm;
-    height: 297mm;
-  }
-  /* ... the rest of the rules ... */
 }

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import ReactToPrint from "react-to-print";
 import InputSheet from "./InputSheet";
 import OutputSheet from "./OutputSheet";
 import {
@@ -9,7 +10,7 @@ import {
 import uniqid from "uniqid";
 import "../app.css";
 
-function App() {
+const App = () => {
   const [personal, setPersonal] = useState({
     name: "",
     address: "",
@@ -107,11 +108,30 @@ function App() {
   }
 
   function replaceState() {
-    console.log(personalExample);
     setPersonal(personalExample);
     setEducation(educationExample);
     setExperience(experienceExample);
   }
+
+  const printRef = useRef();
+
+  const pageStyle = `
+  @page {
+    size: 80mm 50mm;
+  }
+
+  @media all {
+    .pagebreak {
+      display: none;
+    }
+  }
+
+  @media print {
+    .pagebreak {
+      page-break-before: always;
+    }
+  }
+`;
 
   return (
     <div className="wrap">
@@ -120,6 +140,15 @@ function App() {
         <button className="example" onClick={() => replaceState()}>
           Example CV
         </button>
+
+        <ReactToPrint
+          pageeStyle={pageStyle}
+          trigger={() => <button className="save-pdf">Download PDF</button>}
+          content={() => printRef.current}
+        />
+        {/* <button className="save-pdf" onClick={() => handlePrint()}>
+          Download PDF
+        </button> */}
       </div>
       <div className="sheets-wrap">
         <InputSheet
@@ -132,6 +161,7 @@ function App() {
           experience={experience}
         />
         <OutputSheet
+          ref={printRef}
           personal={personal}
           education={education}
           experience={experience}
@@ -139,6 +169,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
