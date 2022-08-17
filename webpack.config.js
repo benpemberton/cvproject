@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -24,14 +25,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.(scss|css)$/,
         include: path.resolve(__dirname, "src"),
         sideEffects: true,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
           },
+          "style-loader",
           "css-loader",
+          "sass-loader",
         ],
       },
       {

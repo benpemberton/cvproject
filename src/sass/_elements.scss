@@ -1,0 +1,73 @@
+@import "https://fonts.googleapis.com/css?family=Calibri";
+@import "https://fonts.googleapis.com/css?family=Garamond";
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
+
+h2,
+h3,
+p,
+label,
+input,
+textarea,
+span {
+  font-family: Calibri;
+}
+
+h2 {
+  margin: 0;
+  font-weight: 500;
+}
+
+label {
+  font-size: 0.9rem;
+}
+
+label,
+input {
+  display: block;
+}
+
+input {
+  margin-bottom: 0.3rem;
+  line-height: 1.2rem;
+  padding-top: 0.2rem;
+}
+
+input[type="month"] {
+  max-width: 155px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+textarea,
+input {
+  width: 100%;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #254f55;
+  border-radius: 5px;
+  border: none;
+  color: #dfddcf;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+button:active {
+  background-color: #2f6c75;
+}

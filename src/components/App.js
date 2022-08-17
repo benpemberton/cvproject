@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
+import SheetsWrap from "./SheetsWrap";
 import InputSheet from "./input/InputSheet";
 import OutputSheet from "./output/OutputSheet";
 import {
@@ -8,7 +9,7 @@ import {
   experienceExample,
 } from "../utils/exampleCV";
 import uniqid from "uniqid";
-import "../app.css";
+import "../sass/app.scss";
 
 const App = () => {
   const [personal, setPersonal] = useState({
@@ -118,7 +119,7 @@ const App = () => {
   return (
     <>
       <Header replaceState={replaceState} printRef={printRef} />
-      <div className="sheets-wrap">
+      <SheetsWrap>
         <InputSheet
           change={changeInfo}
           add={addEntry}
@@ -133,7 +134,7 @@ const App = () => {
           education={education}
           experience={experience}
         />
-      </div>
+      </SheetsWrap>
     </>
   );
 };

@@ -9,7 +9,8 @@ class OutputSheet extends Component {
     const { personal, education, experience } = this.props;
 
     return (
-      <div className="output-sheet">
+      // added inline style padding because react-to-print ignores sass padding
+      <div className="output-sheet" style={{ padding: "1vw" }}>
         <PersonalOutput {...personal} />
         <MappedOutput
           entries={experience}
