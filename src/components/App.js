@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
-import ReactToPrint from "react-to-print";
-import InputSheet from "./InputSheet";
-import OutputSheet from "./OutputSheet";
+import Header from "./Header";
+import InputSheet from "./input/InputSheet";
+import OutputSheet from "./output/OutputSheet";
 import {
   personalExample,
   educationExample,
   experienceExample,
-} from "./exampleCV";
+} from "../utils/exampleCV";
 import uniqid from "uniqid";
 import "../app.css";
 
@@ -41,7 +41,9 @@ const App = () => {
     },
   ]);
 
-  function handleChange(e, type) {
+  const printRef = useRef();
+
+  function changeInfo(e, type) {
     const { name, value, parentNode } = e.target;
     if (type === "personal") {
       setPersonal({ ...personal, [name]: value });
@@ -72,7 +74,7 @@ const App = () => {
     }
   }
 
-  function addSection(type) {
+  function addEntry(type) {
     if (type === "education") {
       setEducation([
         ...education,
@@ -99,7 +101,7 @@ const App = () => {
     }
   }
 
-  function removeSection(e, type) {
+  function removeEntry(e, type) {
     const { parentNode } = e.target;
     e.preventDefault();
     type === "education"
@@ -113,49 +115,14 @@ const App = () => {
     setExperience(experienceExample);
   }
 
-  const printRef = useRef();
-
-  const pageStyle = `
-  @page {
-    size: 80mm 50mm;
-  }
-
-  @media all {
-    .pagebreak {
-      display: none;
-    }
-  }
-
-  @media print {
-    .pagebreak {
-      page-break-before: always;
-    }
-  }
-`;
-
   return (
-    <div className="wrap">
-      <div className="header">
-        <h1>CV Template</h1>
-        <button className="example" onClick={() => replaceState()}>
-          Example CV
-        </button>
-
-        <ReactToPrint
-          pageeStyle={pageStyle}
-          trigger={() => <button className="save-pdf">Download PDF</button>}
-          content={() => printRef.current}
-        />
-        {/* <button className="save-pdf" onClick={() => handlePrint()}>
-          Download PDF
-        </button> */}
-      </div>
+    <>
+      <Header replaceState={replaceState} printRef={printRef} />
       <div className="sheets-wrap">
         <InputSheet
-          editing={true}
-          handler={handleChange}
-          add={addSection}
-          remove={removeSection}
+          change={changeInfo}
+          add={addEntry}
+          remove={removeEntry}
           personal={personal}
           education={education}
           experience={experience}
@@ -167,7 +134,7 @@ const App = () => {
           experience={experience}
         />
       </div>
-    </div>
+    </>
   );
 };
 
